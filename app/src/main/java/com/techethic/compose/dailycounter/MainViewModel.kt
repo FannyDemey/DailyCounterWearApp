@@ -1,4 +1,7 @@
 package com.techethic.compose.dailycounter
 
-class MainViewModel {
+import androidx.lifecycle.ViewModel
+import com.techethic.compose.dailycounter.data.CounterDao
+
+class MainViewModel(private val counterDao: CounterDao) : ViewModel() {
 }
