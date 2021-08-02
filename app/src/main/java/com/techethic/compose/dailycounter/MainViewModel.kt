@@ -20,7 +20,7 @@ class MainViewModel(private val counterDao: CounterDao) : ViewModel() {
     val currentCounter : StateFlow<Counter?> = _currentCounter
     fun retrieveCurrentCounter(){
         viewModelScope.launch {
-            val nowDate = "20210802" //formatDate(Date.from(Instant.now()))
+            val nowDate = formatDate(Date.from(Instant.now()))
             counterDao.findCounterAtDate(nowDate).collect { counterInDb ->
                 if(counterInDb == null){
                     counterDao.insert(Counter(count = 0, date = nowDate))
