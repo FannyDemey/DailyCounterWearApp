@@ -1,6 +1,5 @@
 package com.techethic.compose.dailycounter
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.techethic.compose.dailycounter.data.Counter
@@ -9,7 +8,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*

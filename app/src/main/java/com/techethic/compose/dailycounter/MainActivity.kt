@@ -1,9 +1,9 @@
 package com.techethic.compose.dailycounter
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +11,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.wear.compose.material.*
 import com.techethic.compose.dailycounter.theme.TestTheme
 import com.techethic.compose.dailycounter.ui.DailyCounter
 import com.techethic.compose.dailycounter.ui.statistics.Statistics
@@ -26,6 +25,7 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                Log.d("Fanny","OnRESUME")
                 mainViewModel.retrieveCurrentCounter()
             }
         }
