@@ -16,7 +16,7 @@ import com.techethic.compose.dailycounter.MainViewModel
 
 
 @Composable
-fun DailyCounter(mainViewModel: MainViewModel, navController: NavController) {
+fun DailyCounter(mainViewModel: MainViewModel) {
     val count by mainViewModel.currentCounter.collectAsState()
     Column(
         modifier = Modifier.fillMaxSize().padding(8.dp),
@@ -40,7 +40,7 @@ fun DailyCounter(mainViewModel: MainViewModel, navController: NavController) {
                 style = MaterialTheme.typography.body1
             )
         }
-        CounterOptions(count, mainViewModel, navController)
+        CounterOptions(count, mainViewModel)
 
     }
 }

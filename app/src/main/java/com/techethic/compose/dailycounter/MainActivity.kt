@@ -17,6 +17,10 @@ import com.techethic.compose.dailycounter.ui.statistics.Statistics
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
+/*
+* adb forward tcp:4444 localabstract:/adb-hub
+*  adb connect 127.0.0.1:4444
+* */
 class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModel()
 
@@ -25,7 +29,6 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                Log.d("Fanny","OnRESUME")
                 mainViewModel.retrieveCurrentCounter()
             }
         }
@@ -35,14 +38,11 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }
 
 
 @Composable
 fun MainApp(mainViewModel: MainViewModel){
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "counter") {
-        composable("counter") {DailyCounter(mainViewModel,navController)}
-        composable("statistics") {Statistics(mainViewModel)}
-    }
+    DailyCounter(mainViewModel)
 }

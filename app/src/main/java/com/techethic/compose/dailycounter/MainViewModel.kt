@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.techethic.compose.dailycounter.data.Counter
 import com.techethic.compose.dailycounter.data.CounterDao
+import com.techethic.compose.dailycounter.tools.DateCustomFormatter.formatDateForQuery
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -18,7 +19,7 @@ class MainViewModel(private val counterDao: CounterDao) : ViewModel() {
     val currentCounter : StateFlow<Counter?> = _currentCounter
     fun retrieveCurrentCounter(){
         viewModelScope.launch {
-            val nowDate = formatDate(Date.from(Instant.now()))
+            val nowDate = formatDateForQuery(Date.from(Instant.now()))
             counterDao.findCounterAtDate(nowDate).collect { counterInDb ->
                 if(counterInDb == null){
                     counterDao.insert(Counter(count = 0, date = nowDate))
@@ -36,15 +37,11 @@ class MainViewModel(private val counterDao: CounterDao) : ViewModel() {
 
     }
 
+    fun retrieveAllCounter() = counterDao.getAll()
+
     fun updateCounter(counter: Counter){
         viewModelScope.launch {
             counterDao.update(counter)
         }
-    }
-
-
-    private fun formatDate(date : Date) : String{
-        val simpleDateFormater = SimpleDateFormat("yyyyMMdd", Locale.FRANCE)
-        return simpleDateFormater.format(date)
     }
 }
