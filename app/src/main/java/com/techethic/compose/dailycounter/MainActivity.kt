@@ -1,19 +1,14 @@
 package com.techethic.compose.dailycounter
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.techethic.compose.dailycounter.theme.TestTheme
 import com.techethic.compose.dailycounter.ui.DailyCounter
-import com.techethic.compose.dailycounter.ui.statistics.Statistics
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 

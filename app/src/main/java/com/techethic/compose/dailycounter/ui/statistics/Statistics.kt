@@ -25,10 +25,11 @@ import com.techethic.compose.dailycounter.tools.DateCustomFormatter.formatDateFr
 fun Statistics(mainViewModel : MainViewModel){
     val counters by mainViewModel.retrieveAllCounter().collectAsState(listOf())
     Column(modifier = Modifier
-        .padding(horizontal = 24.dp)
-        .padding(bottom = 28.dp)) {
+        .padding(horizontal = 24.dp)) {
         Text(text = "Statistics",
-            modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.title1)
         LazyColumn {
@@ -53,6 +54,7 @@ fun Statistics(mainViewModel : MainViewModel){
                     )
                 }
                 Divider(MaterialTheme.colors.secondary)
+                LastItemSpacer(counters?.size, index)
             }
         }
     }
@@ -87,4 +89,11 @@ fun Divider(color: Color){
             .clip(RoundedCornerShape(5.dp))
     )
 
+}
+
+@Composable
+fun LastItemSpacer(counterSize: Int ?, currentIndex: Int){
+    if(counterSize != null && (counterSize - 1 == currentIndex)){
+        Spacer(modifier = Modifier.height(24.dp))
+    }
 }

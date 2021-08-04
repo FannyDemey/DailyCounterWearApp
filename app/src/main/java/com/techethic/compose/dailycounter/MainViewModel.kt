@@ -22,13 +22,9 @@ class MainViewModel(private val counterDao: CounterDao) : ViewModel() {
             val nowDate = formatDateForQuery(Date.from(Instant.now()))
             counterDao.findCounterAtDate(nowDate).collect { counterInDb ->
                 if(counterInDb == null){
-                    counterDao.insert(Counter(count = 0, date = nowDate))
-                    counterDao.findCounterAtDate(nowDate).collect {
-                        if(it == null){
-                          throw RuntimeException("counter is still null after insertion. This should not happened")
-                        }
-                        _currentCounter.emit(it)
-                    }
+                    val newCounter = Counter(count = 0, date = nowDate)
+                    counterDao.insert(newCounter)
+                    _currentCounter.emit(newCounter)
                 } else {
                     _currentCounter.emit(counterInDb)
                 }
