@@ -85,8 +85,8 @@ fun Divider(color: Color){
             .fillMaxWidth()
             .height(1.dp)
             .padding(horizontal = 10.dp)
-            .background(color = color)
             .clip(RoundedCornerShape(5.dp))
+            .background(color = color)
     )
 
 }

@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.techethic.compose.dailycounter.theme.TestTheme
-import com.techethic.compose.dailycounter.ui.DailyCounter
+import com.techethic.compose.dailycounter.ui.counter.DailyCounter
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 

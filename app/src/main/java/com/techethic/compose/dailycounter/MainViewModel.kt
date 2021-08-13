@@ -1,5 +1,6 @@
 package com.techethic.compose.dailycounter
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.techethic.compose.dailycounter.data.Counter
@@ -19,14 +20,17 @@ class MainViewModel(private val counterDao: CounterDao) : ViewModel() {
     val currentCounter : StateFlow<Counter?> = _currentCounter
     fun retrieveCurrentCounter(){
         viewModelScope.launch {
-            val nowDate = formatDateForQuery(Date.from(Instant.now()))
+            val nowDate = "20210807" //formatDateForQuery(Date.from(Instant.now()))
             counterDao.findCounterAtDate(nowDate).collect { counterInDb ->
                 if(counterInDb == null){
                     val newCounter = Counter(count = 0, date = nowDate)
                     counterDao.insert(newCounter)
                     _currentCounter.emit(newCounter)
+                    Log.d("Fanny","emit NEW counter $newCounter")
                 } else {
                     _currentCounter.emit(counterInDb)
+                    Log.d("Fanny","emit counter in DB $counterInDb")
+
                 }
             }
         }
