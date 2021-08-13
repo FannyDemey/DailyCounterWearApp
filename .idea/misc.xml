@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_past.xml" value="0.9607142857142857" />
         <entry key="app/src/main/res/drawable/ic_reset.xml" value="0.7642857142857142" />
       </map>
     </option>
