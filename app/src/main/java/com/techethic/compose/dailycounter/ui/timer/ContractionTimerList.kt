@@ -34,7 +34,7 @@ fun ContractionTimerList(mainViewModel : MainViewModel) {
     val contractions by mainViewModel.retrieveAllContractionForLast24Hours().collectAsState(listOf())
     Column(modifier = Modifier
         .padding(horizontal = 24.dp)) {
-        Text(text = "Last 24 hours contractions",
+        Text(text = "Time",
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp),
@@ -88,7 +88,7 @@ fun isContractionFromYesterday(timestamp: Long) : Boolean {
 
 @Composable
 fun TimerListTitle(){
-    Text("Time",
+    Text("Last 24 hours",
         textAlign = TextAlign.Center,
         color = MaterialTheme.colors.primary,
         style = MaterialTheme.typography.body2)
