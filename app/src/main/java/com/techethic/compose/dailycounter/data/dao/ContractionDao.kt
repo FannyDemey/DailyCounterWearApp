@@ -13,6 +13,11 @@ interface ContractionDao {
     @Query("SELECT * FROM contraction WHERE date == :date")
     fun findAllContractionsAtDate(date: String): Flow<List<Contraction>>
 
+
+    @Query("SELECT * FROM contraction WHERE startedAt > :start AND startedAt < :end ")
+    fun findAllContractionsBetweenTimestamp(start: Long, end: Long): Flow<List<Contraction>>
+
+
     @Insert
     suspend fun insert(vararg contraction: Contraction)
 

@@ -24,7 +24,7 @@ import com.techethic.compose.dailycounter.ui.statistics.LastItemSpacer
 
 @Composable
 fun ContractionTimerList(mainViewModel : MainViewModel) {
-    val contractions by mainViewModel.retrieveAllContractionForDate().collectAsState(listOf())
+    val contractions by mainViewModel.retrieveAllContractionForLast24Hours().collectAsState(listOf())
     Column(modifier = Modifier
         .padding(horizontal = 24.dp)) {
         Text(text = "Today's contractions",
