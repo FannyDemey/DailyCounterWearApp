@@ -1,4 +1,4 @@
-package com.techethic.compose.dailycounter.ui
+package com.techethic.compose.dailycounter.ui.counter
 
 import android.content.Intent
 import androidx.compose.foundation.layout.Row
@@ -16,25 +16,23 @@ import androidx.wear.compose.material.MaterialTheme
 import com.techethic.compose.dailycounter.MainViewModel
 import com.techethic.compose.dailycounter.R
 import com.techethic.compose.dailycounter.StatisticsActivity
-import com.techethic.compose.dailycounter.data.Counter
+import com.techethic.compose.dailycounter.data.model.Counter
+import com.techethic.compose.dailycounter.ui.timer.TimerActivity
 
 
 @Composable
-fun CounterOptions(count: Counter?, mainViewModel : MainViewModel){
+fun CounterOptions(){
     val context = LocalContext.current
     Row {
         Button(
             onClick = {
-                count?.let {
-                    it.count = 0
-                    mainViewModel.updateCounter(it)
-                }
+                context.startActivity(Intent(context, TimerActivity::class.java))
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = MaterialTheme.colors.secondary)) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_reset),
-                contentDescription = "Reset counter" )
+                painter = painterResource(id = R.drawable.ic_timer),
+                contentDescription = "Contraction Timer" )
         }
         Spacer(Modifier.size(4.dp))
         Button(

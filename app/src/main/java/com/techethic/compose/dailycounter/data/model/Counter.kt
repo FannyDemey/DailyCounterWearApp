@@ -1,4 +1,4 @@
-package com.techethic.compose.dailycounter.data
+package com.techethic.compose.dailycounter.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

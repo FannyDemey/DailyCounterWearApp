@@ -36,6 +36,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".StatisticsActivity"/>
+        <activity android:name=".ui.timer.TimerActivity"/>
+
     </application>
 
 </manifest>

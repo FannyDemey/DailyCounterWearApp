@@ -1,6 +1,7 @@
-package com.techethic.compose.dailycounter.data
+package com.techethic.compose.dailycounter.data.dao
 
 import androidx.room.*
+import com.techethic.compose.dailycounter.data.model.Counter
 import kotlinx.coroutines.flow.Flow
 
 @Dao

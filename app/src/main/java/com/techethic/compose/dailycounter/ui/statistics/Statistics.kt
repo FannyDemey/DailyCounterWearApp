@@ -3,7 +3,6 @@ package com.techethic.compose.dailycounter.ui.statistics
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -13,11 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.techethic.compose.dailycounter.MainViewModel
-import com.techethic.compose.dailycounter.data.Counter
+import com.techethic.compose.dailycounter.data.model.Counter
 import com.techethic.compose.dailycounter.tools.DateCustomFormatter.formatDateFromDbToDisplayableDate
 
 
@@ -33,7 +33,7 @@ fun Statistics(mainViewModel : MainViewModel){
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.title1)
         LazyColumn {
-            itemsIndexed(counters?.sortedByDescending { it.date } as List<Counter>){ index ,counter ->
+            itemsIndexed(counters?.sortedByDescending { it.date } as List<Counter>){ index, counter ->
                 if(index == 0){
                     StatisticsColumnTitle()
                     Divider(MaterialTheme.colors.primary)
@@ -78,13 +78,13 @@ fun StatisticsColumnTitle(){
 }
 
 @Composable
-fun Divider(color: Color){
+fun Divider(color: Color, padding : Dp = 10.dp){
     // or replace it with a custom one
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(1.dp)
-            .padding(horizontal = 10.dp)
+            .padding(horizontal = padding)
             .clip(RoundedCornerShape(5.dp))
             .background(color = color)
     )
@@ -92,8 +92,8 @@ fun Divider(color: Color){
 }
 
 @Composable
-fun LastItemSpacer(counterSize: Int ?, currentIndex: Int){
-    if(counterSize != null && (counterSize - 1 == currentIndex)){
+fun LastItemSpacer(listSize: Int ?, currentIndex: Int){
+    if(listSize != null && (listSize - 1 == currentIndex)){
         Spacer(modifier = Modifier.height(24.dp))
     }
 }

@@ -1,6 +1,7 @@
 package com.techethic.compose.dailycounter.tools
 
 import android.util.Log
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,5 +22,12 @@ object DateCustomFormatter {
 
         val simpleDateFormater = SimpleDateFormat("d MMM", Locale.ENGLISH)
         return simpleDateFormater.format(parsedDate)
+    }
+
+    fun formatTimestampToTime(timestamp: Long) : String {
+        val stamp = Timestamp(timestamp)
+        val date = Date(stamp.time)
+        val simpleDateFormater = SimpleDateFormat("HH:mm", Locale.ENGLISH)
+        return simpleDateFormater.format(date)
     }
 }
