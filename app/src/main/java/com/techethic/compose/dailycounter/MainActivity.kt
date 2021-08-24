@@ -1,14 +1,18 @@
 package com.techethic.compose.dailycounter
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.techethic.compose.dailycounter.theme.TestTheme
+import com.techethic.compose.dailycounter.theme.MyTheme
 import com.techethic.compose.dailycounter.ui.counter.DailyCounter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -22,22 +26,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                mainViewModel.retrieveCurrentCounter()
+                val locale = resources.configuration.locales[0]
+                mainViewModel.retrieveCurrentCounter(locale)
             }
         }
         setContent {
-            TestTheme {
-                MainApp(mainViewModel = mainViewModel)
+            MyTheme {
+                val counter by mainViewModel.currentCounter.collectAsState()
+                DailyCounter(counter) {
+                    mainViewModel.updateCounter(it)
+                }
             }
         }
     }
 
-}
-
-
-@Composable
-fun MainApp(mainViewModel: MainViewModel){
-    DailyCounter(mainViewModel)
 }

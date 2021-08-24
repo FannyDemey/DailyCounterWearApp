@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">DailyCounter</string>
+    <string name="app_name">Contraction counter</string>
+    <string name="reset_counter">Reset counter</string>
+    <string name="contraction_time">Contraction Timer</string>
+    <string name="statistics">Statistics</string>
+    <string name="date">Date</string>
+    <string name="count">Count</string>
+    <string name="time">Time</string>
+    <string name="yesterday">Yesterday</string>
 </resources>

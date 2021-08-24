@@ -11,7 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -32,9 +34,11 @@ import java.util.*
 @Composable
 fun ContractionTimerList(mainViewModel : MainViewModel) {
     val contractions by mainViewModel.retrieveAllContractionForLast24Hours().collectAsState(listOf())
+    val locale = LocalContext.current.resources.configuration.locales[0]
+
     Column(modifier = Modifier
         .padding(horizontal = 24.dp)) {
-        Text(text = "Time",
+        Text(text = stringResource(id = R.string.time),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp),
@@ -49,7 +53,7 @@ fun ContractionTimerList(mainViewModel : MainViewModel) {
                 ConstraintLayout {
                     val (time, yesterdayContractionIcon) = createRefs()
                     Text(
-                        text = DateCustomFormatter.formatTimestampToTime(contraction.startedAt),
+                        text = DateCustomFormatter.formatTimestampToTime(contraction.startedAt, locale),
                         modifier = Modifier.constrainAs(time){
                             linkTo(start = parent.start, end = parent.end)
                             top.linkTo(parent.top)
@@ -57,15 +61,18 @@ fun ContractionTimerList(mainViewModel : MainViewModel) {
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.body2,
                     )
-                    if(isContractionFromYesterday(contraction.startedAt)){
+                    if(isContractionFromYesterday(contraction.startedAt, locale)){
                         Icon(
                             painter = painterResource(id = R.drawable.ic_past),
-                            contentDescription = "Yesterday",
-                            modifier = Modifier.size(16.dp).padding(start = 4.dp).constrainAs(yesterdayContractionIcon){
-                                top.linkTo(time.top)
-                                bottom.linkTo(time.bottom)
-                                start.linkTo(time.end)
-                            })
+                            contentDescription = stringResource(id = R.string.yesterday),
+                            modifier = Modifier
+                                .size(16.dp)
+                                .padding(start = 4.dp)
+                                .constrainAs(yesterdayContractionIcon) {
+                                    top.linkTo(time.top)
+                                    bottom.linkTo(time.bottom)
+                                    start.linkTo(time.end)
+                                })
                     }
                 }
 
@@ -78,10 +85,10 @@ fun ContractionTimerList(mainViewModel : MainViewModel) {
 
 }
 
-fun isContractionFromYesterday(timestamp: Long) : Boolean {
+fun isContractionFromYesterday(timestamp: Long, locale : Locale) : Boolean {
     val stamp = Timestamp(timestamp)
     val date = Date(stamp.time)
-    val fmt = SimpleDateFormat("yyyyMMdd", Locale.ENGLISH)
+    val fmt = SimpleDateFormat("yyyyMMdd", locale)
     Log.d("Fanny","stampDate : $date, formated : ${fmt.format(date)} now: ${fmt.format(Date.from(Instant.now()))}")
     return !fmt.format(date).equals(fmt.format(Date.from(Instant.now())))
 }

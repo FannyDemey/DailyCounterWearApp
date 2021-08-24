@@ -35,8 +35,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StatisticsActivity"/>
-        <activity android:name=".ui.timer.TimerActivity"/>
+        <activity android:name=".StatisticsActivity"
+            android:exported="true"
+            />
+        <activity android:name=".ui.timer.TimerActivity"
+            android:exported="true"
+            />
 
     </application>
 

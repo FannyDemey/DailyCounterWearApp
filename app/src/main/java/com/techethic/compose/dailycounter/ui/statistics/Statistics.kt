@@ -11,12 +11,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.techethic.compose.dailycounter.MainViewModel
+import com.techethic.compose.dailycounter.R
 import com.techethic.compose.dailycounter.data.model.Counter
 import com.techethic.compose.dailycounter.tools.DateCustomFormatter.formatDateFromDbToDisplayableDate
 
@@ -24,9 +27,10 @@ import com.techethic.compose.dailycounter.tools.DateCustomFormatter.formatDateFr
 @Composable
 fun Statistics(mainViewModel : MainViewModel){
     val counters by mainViewModel.retrieveAllCounter().collectAsState(listOf())
+    val locale = LocalContext.current.resources.configuration.locales[0]
     Column(modifier = Modifier
         .padding(horizontal = 24.dp)) {
-        Text(text = "Statistics",
+        Text(text = stringResource(id = R.string.statistics),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp),
@@ -41,7 +45,7 @@ fun Statistics(mainViewModel : MainViewModel){
                 }
                 Row(modifier = Modifier.fillMaxSize()) {
                     Text(
-                        text = formatDateFromDbToDisplayableDate(counter.date),
+                        text = formatDateFromDbToDisplayableDate(counter.date, locale),
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.body2
@@ -64,12 +68,13 @@ fun Statistics(mainViewModel : MainViewModel){
 @Composable
 fun StatisticsColumnTitle(){
     Row(modifier = Modifier.fillMaxSize()) {
-        Text("Date",
+        Text(
+            stringResource(id = R.string.date),
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.Center,
             color = MaterialTheme.colors.primary,
             style = MaterialTheme.typography.body2)
-        Text("Count",
+        Text( stringResource(id = R.string.count),
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.Center,
             color = MaterialTheme.colors.primary,

@@ -22,7 +22,7 @@ private val ColorPalette = Colors(
 )
 
 @Composable
-fun TestTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun MyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
     val colors = ColorPalette
 
     MaterialTheme(

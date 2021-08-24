@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
@@ -32,7 +33,7 @@ fun CounterOptions(){
                 backgroundColor = MaterialTheme.colors.secondary)) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_timer),
-                contentDescription = "Contraction Timer" )
+                contentDescription = stringResource(id = R.string.contraction_time) )
         }
         Spacer(Modifier.size(4.dp))
         Button(
@@ -43,7 +44,7 @@ fun CounterOptions(){
                 backgroundColor = MaterialTheme.colors.secondary)) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_show_stats),
-                contentDescription = "Statistics"
+                contentDescription = stringResource(id = R.string.statistics)
             )
         }
     }

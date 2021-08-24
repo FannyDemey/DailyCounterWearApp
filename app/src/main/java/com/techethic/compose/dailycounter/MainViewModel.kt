@@ -8,6 +8,7 @@ import com.techethic.compose.dailycounter.data.model.Counter
 import com.techethic.compose.dailycounter.data.dao.CounterDao
 import com.techethic.compose.dailycounter.data.model.Contraction
 import com.techethic.compose.dailycounter.tools.DateCustomFormatter.formatDateForQuery
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,9 +22,9 @@ class MainViewModel(private val counterDao: CounterDao, private val contractionD
 
     private val _currentCounter : MutableStateFlow<Counter?> = MutableStateFlow(null)
     val currentCounter : StateFlow<Counter?> = _currentCounter
-    fun retrieveCurrentCounter(){
-        viewModelScope.launch {
-            val nowDate = formatDateForQuery(Date.from(Instant.now()))
+    fun retrieveCurrentCounter(locale : Locale){
+        viewModelScope.launch(Dispatchers.IO) {
+            val nowDate = formatDateForQuery(Date.from(Instant.now()), locale)
             counterDao.findCounterAtDate(nowDate).collect { counterInDb ->
                 if(counterInDb == null){
                     val newCounter = Counter(count = 0, date = nowDate)
@@ -41,10 +42,6 @@ class MainViewModel(private val counterDao: CounterDao, private val contractionD
     }
 
     fun retrieveAllCounter() = counterDao.getAll()
-
-    fun retrieveAllContractionForDate(
-        date : String = formatDateForQuery(Date.from(Instant.now()))
-    ) = contractionDao.findAllContractionsAtDate(date)
 
     fun retrieveAllContractionForLast24Hours() : Flow<List<Contraction>> {
         val now = Date.from(Instant.now()).time
